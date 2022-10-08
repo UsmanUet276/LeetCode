@@ -1,0 +1,86 @@
+class Set{
+    vector <char> set;
+    int top;
+    
+public:
+    Set(){
+        top = 0;
+    }
+    void push(char val)
+    {
+        top += 1;
+        set.push_back(val);
+    }
+    void pop()
+    {
+        if(top <= 0)
+        {
+            cout << "Stack!! overflow Empty";
+        }
+        else
+        {
+            set.pop_back();
+            top -= 1;
+        }
+    }
+    
+    char topElement()
+    {
+        if(top == 0)
+            return '0';
+        return set.at(top - 1);
+    }
+    
+    bool isEmpty()
+    {
+        if(top == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    int getSize()
+    {
+        return top;
+    }
+    
+};
+class Solution {
+public:
+    bool isValid(string s) {
+        Set set;
+        Set set1;
+        
+        int count = 0;
+        if(s.size() == 1)
+        {
+            return false;
+        }
+        for(int i = 0; i < s.size(); i++)
+        {
+            if(s[i] == '(' || s[i] == '[' || s[i] == '{')
+            {
+                count += 1;
+                set.push(s[i]);
+            }
+            else if(((s[i] == ')' && set.topElement() == '(' )||( s[i] == ']' && set.topElement() == '[' ) ||( s[i] == '}' && set.topElement() == '{' )) && !set.isEmpty())
+            {
+                set.pop();
+            }
+            if(s[i] == ')' || s[i] == ']' || s[i] == '}')
+            {
+                set1.push(s[i]);
+            }
+        }
+        if(count != set1.getSize())
+        {
+            return false;
+        }
+        if(set.isEmpty())
+               {
+                   return true;
+               }
+               return false;
+    }
+};
