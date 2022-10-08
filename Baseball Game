@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int calPoints(vector<string>& operations) {
+        int sum = 0;
+        vector<int> val;
+        for(int i =0; i < operations.size(); i++)
+        {
+            if(operations.at(i) == "C")
+            {
+                int temp = val.at(val.size() - 1);
+                sum -= temp;
+                val.pop_back();
+            }
+            else if(operations.at(i) == "D")
+            {
+                int temp = 2 * val.at(val.size() - 1);
+                val.push_back(temp);
+                sum += temp;
+            }
+            else if(operations.at(i) == "+")
+            {
+                int temp = val.at(val.size() - 1) + val.at(val.size() - 2);
+                val.push_back(temp); 
+                sum += temp;
+            }
+            else
+            {
+                int temp = stoi(operations.at(i));
+                val.push_back(temp);
+                sum += temp;
+            }
+        }
+        return sum;
+    }
+};
